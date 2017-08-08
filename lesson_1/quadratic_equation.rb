@@ -19,11 +19,11 @@ end
 
 def solve_quadratic_equation coefficients
   d = coefficients[1] ** 2.0 - 4.0 * coefficients[0] * coefficients[2]
-
+  sqrt_d = Math.sqrt(d)
   return ["Roots are not present"] if d < 0
   return [-0.5 * coefficients[1] / coefficients[0]] if d == 0
-  return [-0.5 * (coefficients[1] + d) / coefficients[0],
-          -0.5 * (coefficients[1] - d) / coefficients[0]]
+  return [-0.5 * (coefficients[1] + sqrt_d) / coefficients[0],
+          -0.5 * (coefficients[1] - sqrt_d) / coefficients[0]]
 end
 
 coefficients = input_data 3
