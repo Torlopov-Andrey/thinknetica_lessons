@@ -4,7 +4,7 @@
  # на экран с обращением по имени. Если идеальный вес получается отрицательным,
  # то выводится строка "Ваш вес уже оптимальный"
 
-def perfect_weight name, height
+def perfect_weight(name, height)
   perfect_weight = height - 110
   result =  if perfect_weight >=0
               "#{name} your optimal weight #{perfect_weight}."
@@ -19,4 +19,4 @@ name = gets.chomp.capitalize!
 print 'Input height: '
 height = gets.chomp.to_i
 
-p perfect_weight name, height
+p perfect_weight(name, height)
