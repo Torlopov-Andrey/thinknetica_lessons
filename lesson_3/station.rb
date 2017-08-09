@@ -1,40 +1,33 @@
-require_relative 'train.rb'
-require_relative 'route.rb'
+require_relative 'train'
+require_relative 'route'
 
-module Trainspotting
+class Station
+  attr_reader :name, :trains
 
-  class Station
-    attr_reader :name
+  def initialize(name)
+    @name = name
+    @trains = []
+  end
 
-    def initialize name
-      @name = name
-      @trains = []
-    end
+  def add_train(train)
+    @trains << train
+  end
 
-    def take train
-      @trains << train
-    end
+  def remove_train(train)
+    @trains.delete(train)
+  end
 
-    def release train
-      @trains.delete(train) if @trains.include?(train)
-    end
-
-    def trains_list
-      @trains
-    end
-
-    def train_list_with_type
-      result = {}
-
-      @trains.each do |train|
-        if result[train.type] == nil
-          result[train.type] = [train]
-        else
-          result[train.type] << train
-        end
-      end
-
-      result
-    end
+  def train_list(train_type = :goods)
+    @trains.select { |train| train.type == train_type }
   end
 end
+
+# s = Station.new "123123"
+# t = Train.new 1, :goods, 3
+# t1 = Train.new 2, :goods, 4
+# t2 = Train.new 2, :passenger, 5
+
+# s.add_train t
+# s.add_train t1
+# s.add_train t2
+# puts s.train_list :passenger
