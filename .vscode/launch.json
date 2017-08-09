@@ -5,7 +5,7 @@
           "name": "Ruby Debug",
           "type": "Ruby",
           "request": "launch",
-          "program": "${workspaceRoot}/lesson_2/task1.rb",
+          "program": "${workspaceRoot}/main.rb",
           "stopOnEntry": false
         }
     ]
