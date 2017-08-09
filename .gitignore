@@ -1,3 +1,7 @@
+/.vscode/*
+sandbox.rb
+
+
 *.gem
 *.rbc
 /.config
