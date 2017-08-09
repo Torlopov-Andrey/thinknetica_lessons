@@ -3,10 +3,11 @@
 # Пользователь может ввести произвольное кол-во товаров до тех пор,
 # пока не введет "стоп" в качестве названия товара. На основе введенных
 # данных требуетеся:
-# Заполнить и вывести на экран хеш, ключами которого являются названия
+# - Заполнить и вывести на экран хеш, ключами которого являются названия
 # товаров, а значением - вложенный хеш, содержащий цену за единицу товара
-# и кол-во купленного товара. Также вывести итоговую сумму за каждый товар.
-# Вычислить и вывести на экран итоговую сумму всех покупок в "корзине".
+# и кол-во купленного товара.
+# - Также вывести итоговую сумму за каждый товар.
+# - Вычислить и вывести на экран итоговую сумму всех покупок в "корзине".
 
 module OrderPurchases
   @products = {}
@@ -42,8 +43,25 @@ module OrderPurchases
 
   def self.products
     @products
-  end  
+  end
+
+  def self.check
+    check = @products.map do |k,v|
+      value_sum = v.map { |k1, v1| k1 * v1 }.sum
+      {k => value_sum }
+    end
+    check
+  end
+
+  def self.total_sum
+    check.map { |e| e.values.sum }.sum
+  end
 end
 
 puts OrderPurchases.input_data
+puts '.'*30 +  'product info'  + '.' * 30
 puts OrderPurchases.products
+puts '.'*30 + 'products costs'  + '.' * 30
+puts OrderPurchases.check
+puts '.'*30 +  'total sum'  + '.' * 30
+puts OrderPurchases.total_sum
