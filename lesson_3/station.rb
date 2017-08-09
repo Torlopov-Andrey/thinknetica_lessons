@@ -21,13 +21,3 @@ class Station
     @trains.select { |train| train.type == train_type }
   end
 end
-
-# s = Station.new "123123"
-# t = Train.new 1, :goods, 3
-# t1 = Train.new 2, :goods, 4
-# t2 = Train.new 2, :passenger, 5
-
-# s.add_train t
-# s.add_train t1
-# s.add_train t2
-# puts s.train_list :passenger
