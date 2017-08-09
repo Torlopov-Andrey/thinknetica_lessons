@@ -1,12 +1,11 @@
 # Заполнить массив числами фибоначчи до 100
 
-def fib_array n
-  ary = Array.new(n)
-  ary[0] = 1
-  ary[1] = 1
-  (2..n).each do |i|
-    ary[i] = ary[i - 1] + ary[i - 2]
+def fib_array max_value
+  ary = [1,1]
+  while ary.last < max_value
+    ary << ary[- 1] + ary[- 2]
   end
+  ary.pop
   ary
 end
 

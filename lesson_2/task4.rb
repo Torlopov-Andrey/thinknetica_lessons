@@ -1,12 +1,11 @@
 # Заполнить хеш гласными буквами, где значением будет являтся порядковый номер буквы в алфавите (a - 1).
 
 abc = ("a".."z").to_a
-vowels = ["a","e","i","o","u","y"]
+vowels = %w( a e i o u )
 result = {}
-abc.inject({}) do |r,e|
-  if vowels.include? e
-    result[e] = abc.index(e) + 1
-  end
+
+abc.each_with_index do |letter|
+  result[letter] = abc.index(letter) + 1 if vowels.include? letter
 end
 
 p result

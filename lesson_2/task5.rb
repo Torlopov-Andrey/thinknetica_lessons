@@ -16,9 +16,7 @@ end
 d, m, y = input_data
 
 def leap_year? year
-  return true if year % 400 == 0
-  return false if year % 100 == 0
-  return year % 4 == 0
+  return year % 400 == 0 && year % 4 == 0 && year % 100 != 0
 end
 
 def month_days month, leap
@@ -31,5 +29,5 @@ def year_days year
   return leap_year?(year) ? 366 : 365
 end
 
-days_in_year = (1...m).to_a.map { |e| month_days(e, leap_year?(y)) }.sum + d
+days_in_year = (1...m).to_a.map { |month| month_days(month, leap_year?(y)) }.sum + d
 puts days_in_year

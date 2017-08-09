@@ -14,4 +14,4 @@
           november: 30,
           december: 31 }
 
- year.each { |k,v| puts k if v == 30 }
+ year.each { |month, day| puts month if day == 30 }
