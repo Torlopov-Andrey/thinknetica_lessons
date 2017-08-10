@@ -13,12 +13,10 @@ class Train
   end
 
   def speed_up
-    puts "speed up! speed = #{@speed}"
     @speed += 10
   end
 
   def stop
-    puts "Stop! speed = #{@speed}"
     @speed = 0
   end
 
@@ -31,7 +29,6 @@ class Train
   end
 
   def route=(route)
-    puts "set route...#{route.object_id}"
     @route = route
     @current_station_index = 0
   end
@@ -39,7 +36,6 @@ class Train
   def move_forward
     puts "move forward"
     if @current_station_index == @route.stations.count - 1
-      puts "We are at the terminal station"
       return
     end
     
@@ -48,7 +44,6 @@ class Train
   end
 
   def move_backward
-    puts "move backward"
     if @current_station_index == 0
       puts "We are at the first station"
       return
@@ -79,7 +74,6 @@ class Train
 
   def update_station direction
     return if direction == nil
-    puts "Update station with direction #{direction}"
     @route.stations[@current_station_index].remove_train(self)
     @current_station_index += direction == :forward ? 1 : -1
     @route.stations[@current_station_index].add_train(self)
