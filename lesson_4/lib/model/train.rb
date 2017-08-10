@@ -61,7 +61,7 @@ class Train
 
   # Данный метод был приватным, но поскольку он вызывается из публичных методов, то делаем его protected
   def update_station direction
-    return if direction == nil
+    return unless direction == nil
     @route.stations[@current_station_index].remove_train(self)
     @current_station_index += direction == :forward ? 1 : -1
     @route.stations[@current_station_index].add_train(self)

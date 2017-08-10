@@ -15,7 +15,6 @@ class PassengerTrain < Train
 
   def remove_carriage(carriage)
     super
-
     @carriages.delete(carriage)
   end
 end
