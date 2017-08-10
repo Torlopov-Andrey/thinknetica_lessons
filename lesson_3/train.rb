@@ -73,7 +73,7 @@ class Train
   private 
 
   def update_station direction
-    return if direction == nil
+    return unless direction
     @route.stations[@current_station_index].remove_train(self)
     @current_station_index += direction == :forward ? 1 : -1
     @route.stations[@current_station_index].add_train(self)
