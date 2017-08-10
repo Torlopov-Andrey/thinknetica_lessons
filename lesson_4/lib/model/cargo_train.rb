@@ -2,11 +2,11 @@ require_relative 'train'
 require_relative 'boxcar'
 
 class CargoTrain < Train
-   def add_carriage(carriage)
+  def add_carriage(carriage)
     super
     unless carriage.class == BoxCar
       puts "Need only CarriageCar!"
-      return  
+      return
     end
     return if @carriages.include?(carriage)
 

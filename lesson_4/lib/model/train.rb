@@ -3,7 +3,7 @@ require_relative 'station.rb'
 
 class Train
   attr_reader :number, :carriages, :speed
-  
+
   def initialize(number)
     @number = number
     @carriages = []
@@ -35,12 +35,12 @@ class Train
       puts "We are at the first station"
       return
     end
-    
+
     stop
     speed_up
     update_station :backward
   end
-  
+
   def current_station
     @route.stations[@current_station_index]
   end
@@ -69,15 +69,15 @@ class Train
 
   # Данные методы будут переопределяться в наследниках
   def add_carriage(carriage)
-    if @speed > 0 
+    if @speed > 0
       puts "Can't add carriage, cause carriage still moving."
       return
     end
   end
 
   # Данные методы будут переопределяться в наследниках
-  def remove_carriage(carriage) 
-    if @speed > 0 
+  def remove_carriage(carriage)
+    if @speed > 0
       puts "Can't remove carriage, cause carriage still moving."
       return
     end

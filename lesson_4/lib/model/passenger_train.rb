@@ -6,7 +6,7 @@ class PassengerTrain < Train
     super
     unless carriage.class == Carriage
       puts "Need only Carriage!"
-      return  
+      return
     end
     return if @carriages.include?(carriage)
 

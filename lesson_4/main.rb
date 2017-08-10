@@ -45,23 +45,23 @@ module Trainspotting
   def self.execute_command(command)
     controller = nil
     case command
-    when 1
-      controller = :station
-    when 2
-      controller = :train
-    else 
-      puts "\n\n\n"
-      puts "Unknown command"
-      puts "\n\n\n"
+      when 1
+        controller = :station
+      when 2
+        controller = :train
+      else
+        puts "\n\n\n"
+        puts "Unknown command"
+        puts "\n\n\n"
     end
 
     loop do
-        break unless controller
-        eval "@#{controller.to_s}_controller.description"
-        # @station_controller.description
-        command = gets.chomp.to_i
-        break if command == 0 
-        eval "@#{controller.to_s}_controller.execute_command(command)"
+      break unless controller
+      eval "@#{controller.to_s}_controller.description"
+      # @station_controller.description
+      command = gets.chomp.to_i
+      break if command == 0
+      eval "@#{controller.to_s}_controller.execute_command(command)"
     end
   end
 

@@ -17,7 +17,7 @@ class Station
   end
 
   def train_list(train_type = :goods)
-    @trains.select { |train| train.type == train_type }
+    @trains.select {|train| train.type == train_type}
   end
 end
 
