@@ -1,5 +1,6 @@
 require_relative 'route'
 require_relative 'station.rb'
+require_relative './traincar'
 
 class Train
   attr_reader :number, :carriages, :speed
@@ -9,6 +10,8 @@ class Train
     @carriages = []
     @speed = 0
     @current_station_index = 0
+    @type = nil
+    @carriage_type = nil
   end
 
   def speed_up
@@ -20,20 +23,24 @@ class Train
   end
 
   def route=(route)
-    @route = route
+    @route = route    
     @current_station_index = 0
+    @route.stations[@current_station_index].add_train(self)
   end
 
   def move_forward
+    puts "... 1"
+    return unless self.route?
     return if @current_station_index == @route.stations.count - 1
+    puts "... 2"
     self.speed_up
     update_station :forward
   end
 
   def move_backward
+    return unless self.route?
     if @current_station_index == 0
-      puts "We are at the first station"
-      return
+      return "We are at the first station"
     end
 
     stop
@@ -42,44 +49,72 @@ class Train
   end
 
   def current_station
+    return unless self.route?
     @route.stations[@current_station_index]
   end
 
   def prev_station
-    return @route.stations[@current_station_index - 1] if @current_station_index - 1 >= 0
-    puts "You are at the first station"
-    return @route.stations[@current_station_index]
+    return unless self.route?
+    if @current_station_index - 1 >= 0
+      return @route.stations[@current_station_index - 1] 
+    else
+      return @route.stations[@current_station_index]
+    end
   end
 
   def next_station
-    return @route.stations[@current_station_index + 1] if @current_station_index + 1 < @route.stations.count
-    puts "You are at the last station"
+    return unless self.route?
+    if @current_station_index + 1 < @route.stations.count
+      return @route.stations[@current_station_index + 1] 
+    end
+
     return @route.stations[@current_station_index]
   end
 
-  protected
-
   # Данный метод был приватным, но поскольку он вызывается из публичных методов, то делаем его protected
   def update_station direction
-    return unless direction == nil
+    puts "... 3"
+    return unless direction
     @route.stations[@current_station_index].remove_train(self)
     @current_station_index += direction == :forward ? 1 : -1
+    puts "... 4"
     @route.stations[@current_station_index].add_train(self)
   end
-
-  # Данные методы будут переопределяться в наследниках
-  def add_carriage(carriage)
-    if @speed > 0
-      puts "Can't add carriage, cause carriage still moving."
-      return
-    end
+  
+  def moving?
+    @speed > 0
   end
 
-  # Данные методы будут переопределяться в наследниках
-  def remove_carriage(carriage)
-    if @speed > 0
-      puts "Can't remove carriage, cause carriage still moving."
-      return
+  def add_carriage(carriage)
+    return "Train still moving" if moving? 
+
+    unless carriage.class == @carriage_type
+      return "Need only Carriage!"
     end
+
+    @carriages << carriage unless @carriages.include?(carriage)
+    "Carriage added"
+  end
+
+  def remove_carriage(carriage)
+    return "Train still moving" if moving? 
+    @carriages.delete(carriage)
+    "Carriage removed"
+  end
+
+  def print_carriages
+    @carriages.each_with_index do |carriage, index|
+      puts "#{index+1}. Number: #{carriage.number}"
+    end
+    puts "List is empty" if @carriages.empty?
+  end
+
+  def detail
+    carriage_numbs = @carriages.map { |carriage|  carriage.number }.join(', ')
+    "N:#{self.number} Type: #{self.class == PassengerTrain ? 'Passenger' : 'Cargp'} Carriage numbers: #{carriage_numbs}"
+  end
+
+  def route?
+    return @route != nil
   end
 end

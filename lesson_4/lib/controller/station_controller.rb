@@ -3,37 +3,22 @@ require_relative 'controller'
 
 module Trainspotting 
   class StationController < Controller
-
-    def description
-      puts
-      puts @data.count == 0 ? '1. Add station?' : '1. Add another station'
-      puts '2. Show station list' if @data.count > 0
-      puts '3. Remove station'    if @data.count > 0
-      puts '0. Back'
-      print '> '
-    end
-
-    def execute_command(command)
-      case command
-      when 1
-        self.add_station
-      when 2
-        self.show_stations
-      when 3 
-        self.remove_station
-      end
+    def initialize
+      super
+      @type = 'station'
     end
 
     protected 
 
-    def show_stations
+    def show
       puts
       @data.each_with_index do |station,index|
-        puts "#{index}. Station: #{station.name} :: train count: #{station.trains.count}"
+        puts "#{index+1}. Station: #{station.name} :: train count: #{station.trains.count}"
       end
+      puts "Station list is empty" if @data.empty?
     end
 
-    def add_station
+    def add
       system("clear")
       puts
       puts 'Input station name'
@@ -43,9 +28,9 @@ module Trainspotting
       @data << Station.new(name) unless name.empty?
     end
 
-    def remove_station
+    def remove
       system("clear")
-      self.show_stations
+      self.show
       puts 'Type station index to delete:'
       print '> '
       i = gets.chomp.to_i

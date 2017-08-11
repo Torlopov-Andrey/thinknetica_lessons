@@ -1,5 +1,5 @@
 require_relative 'traincar'
 
-class BoxCar
+class BoxCar < TrainCar
 
 end

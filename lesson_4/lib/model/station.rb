@@ -1,4 +1,4 @@
-require_relative 'train'
+require_relative './train'
 
 class Station
   attr_reader :name, :trains
@@ -20,4 +20,3 @@ class Station
     @trains.select {|train| train.type == train_type}
   end
 end
-

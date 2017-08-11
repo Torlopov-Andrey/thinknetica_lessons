@@ -15,4 +15,10 @@ class Route
     index = @stations.index(station)
     @stations.delete(station) if index != 0 && index != @stations.count - 1
   end
+
+  def print_stations
+    @stations.each_with_index do |station, index|
+      puts "  #{index+1}. Station: #{station.name}  train count: #{station.trains.count}"
+    end
+  end
 end
