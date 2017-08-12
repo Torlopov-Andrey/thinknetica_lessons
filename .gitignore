@@ -1,6 +1,6 @@
 /.vscode/*
 sandbox.rb
-
+/.idea/*
 
 *.gem
 *.rbc
