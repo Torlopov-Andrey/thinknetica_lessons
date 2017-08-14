@@ -1,11 +1,25 @@
 require_relative './train'
+require_relative './../module/instance_counter'
 
 class Station
+  include InstanceCounter
+
   attr_reader :name, :trains
+
+  @@all_instances = []
 
   def initialize(name)
     @name = name
     @trains = []
+    @@all_instances << self
+    self.register_instance
+  end
+  
+  # Непонятно как сделать деструктор, чтобы можно было удалить 
+  # instance и объект установить как nil
+  # Пока сделал так.
+  def finalize()
+      @@all_instances.delete(self)
   end
 
   def add_train(train)
@@ -18,5 +32,9 @@ class Station
 
   def train_list(train_type = :goods)
     @trains.select {|train| train.type == train_type}
+  end
+
+  def self.all
+    @@all_instances
   end
 end

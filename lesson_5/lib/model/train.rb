@@ -1,9 +1,15 @@
 require_relative 'route'
 require_relative 'station.rb'
 require_relative './traincar'
+require_relative './../module/owner'
+require_relative './../module/instance_counter'
 
 class Train
+  include Owner
+  include InstanceCounter
+
   attr_reader :number, :carriages, :speed
+  @@instances = []
 
   def initialize(number)
     @number = number
@@ -12,6 +18,17 @@ class Train
     @current_station_index = 0
     @type = nil
     @carriage_type = nil
+    @@instances << self
+  end
+
+  def finalize()
+    @@instances.delete(self)
+  end
+
+  def self.find(number)
+    @@instances.find do |train|
+      train.number == number
+    end
   end
 
   def speed_up
