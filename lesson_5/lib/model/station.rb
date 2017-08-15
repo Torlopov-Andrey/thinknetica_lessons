@@ -14,13 +14,6 @@ class Station
     @@all_instances << self
     self.register_instance
   end
-  
-  # Непонятно как сделать деструктор, чтобы можно было удалить 
-  # instance и объект установить как nil
-  # Пока сделал так.
-  def finalize()
-      @@all_instances.delete(self)
-  end
 
   def add_train(train)
     @trains << train

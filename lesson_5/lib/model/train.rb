@@ -9,7 +9,7 @@ class Train
   include InstanceCounter
 
   attr_reader :number, :carriages, :speed
-  @@instances = []
+  @@instances = {}
 
   def initialize(number)
     @number = number
@@ -18,17 +18,11 @@ class Train
     @current_station_index = 0
     @type = nil
     @carriage_type = nil
-    @@instances << self
-  end
-
-  def finalize()
-    @@instances.delete(self)
+    @@instances[number] = self
   end
 
   def self.find(number)
-    @@instances.find do |train|
-      train.number == number
-    end
+    @@instances[number]
   end
 
   def speed_up
