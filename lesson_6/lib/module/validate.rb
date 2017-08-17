@@ -21,4 +21,16 @@ module Validate
     rescue
       false
     end
+
+    def validate_stations!(stations)
+      stations.each { |station| raise "Array contain not station object!" unless station.instance_of?(Station) }
+      true
+    end
+
+    def valid_station?
+      validate_stations!(stations)
+      true
+    rescue
+      false
+    end
 end

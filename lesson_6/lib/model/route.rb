@@ -1,9 +1,12 @@
 require_relative 'station'
+require_relative './../module/validate'
 
 class Route
+  include Validate
   attr_reader :stations
 
   def initialize(start, finish)
+    validate_stations!([start,finish])
     @stations = [start, finish]
   end
 
@@ -18,7 +21,7 @@ class Route
 
   def print_stations
     @stations.each_with_index do |station, index|
-      puts "  #{index+1}. Station: #{station.name}  train count: #{station.trains.count}"
+      puts "  #{index + 1}. Station: #{station.name}  train count: #{station.trains.count}"
     end
   end
 end

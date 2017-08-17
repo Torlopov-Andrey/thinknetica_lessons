@@ -15,13 +15,11 @@ class Train
   
   def initialize(number)
     @number = number
+    validate!
     @carriages = []
     @speed = 0
     @current_station_index = 0
-    @type = nil
-    @carriage_type = nil
     @@train_instances[number] = self
-    validate!
   end
 
   def self.find(number)
