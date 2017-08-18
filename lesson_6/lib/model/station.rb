@@ -32,5 +32,13 @@ class Station
 
   def self.all
     @@all_instances
+  end 
+
+  private 
+
+  def validate!
+    raise "Name can't be nil" if self.name.nil? 
+    raise "Name should be at least 5 symbols" if self.name.length < 5
+    true
   end
 end

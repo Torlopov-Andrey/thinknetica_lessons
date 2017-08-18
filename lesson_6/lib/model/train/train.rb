@@ -4,11 +4,13 @@ require_relative './../traincar/traincar'
 require_relative './../../module/owner'
 require_relative './../../module/instance_counter'
 require_relative './../../module/validate'
+require_relative './../../module/validate_number'
 
 class Train
   include Owner
   include InstanceCounter
   include Validate
+  include ValidateNumber
 
   attr_reader :number, :carriages, :speed
   @@train_instances = {}
@@ -21,7 +23,7 @@ class Train
     @current_station_index = 0
     @@train_instances[number] = self
   end
-
+  
   def self.find(number)
     @@train_instances[number]
   end

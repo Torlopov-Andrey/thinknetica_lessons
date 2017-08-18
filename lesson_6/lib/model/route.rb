@@ -6,7 +6,7 @@ class Route
   attr_reader :stations
 
   def initialize(start, finish)
-    validate_stations!([start,finish])
+    validate!
     @stations = [start, finish]
   end
 
@@ -23,5 +23,12 @@ class Route
     @stations.each_with_index do |station, index|
       puts "  #{index + 1}. Station: #{station.name}  train count: #{station.trains.count}"
     end
+  end
+
+  private
+
+   def validate!
+     @stations.each { |station| raise "Array contain not station object!" unless station.instance_of?(Station) }
+     true
   end
 end
