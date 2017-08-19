@@ -28,7 +28,8 @@ class Route
   private
 
    def validate!
-     @stations.each { |station| raise "Array contain not station object!" unless station.instance_of?(Station) }
-     true
+    unless @stations.all? { |station| station.is_a?(Station) }
+      raise "Array contains not station object!"
+    end
   end
 end

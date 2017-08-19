@@ -43,14 +43,14 @@ class Train
   end
 
   def move_forward
-    return unless self.route?
+    return unless route?
     return if @current_station_index == @route.stations.count - 1
-    self.speed_up
+    speed_up
     update_station :forward
   end
 
   def move_backward
-    return unless self.route?
+    return unless route?
     if @current_station_index == 0
       return "We are at the first station"
     end
@@ -61,12 +61,12 @@ class Train
   end
 
   def current_station
-    return unless self.route?
+    return unless route?
     @route.stations[@current_station_index]
   end
 
   def prev_station
-    return unless self.route?
+    return unless route?
     if @current_station_index - 1 >= 0
       return @route.stations[@current_station_index - 1] 
     else
@@ -75,7 +75,7 @@ class Train
   end
 
   def next_station
-    return unless self.route?
+    return unless route?
     if @current_station_index + 1 < @route.stations.count
       return @route.stations[@current_station_index + 1] 
     end
@@ -121,7 +121,7 @@ class Train
 
   def detail
     carriage_numbs = @carriages.map { |carriage|  carriage.number }.join(', ')
-    "N:#{self.number} Type: #{self.class == PassengerTrain ? 'Passenger' : 'Cargp'} Carriage numbers: #{carriage_numbs}"
+    "N:#{number} Type: #{self.class == PassengerTrain ? 'Passenger' : 'Cargp'} Carriage numbers: #{carriage_numbs}"
   end
 
   def route?
