@@ -85,7 +85,6 @@ module Trainspotting
       when 3
         @data << Route.new(stations.shift, stations.shift)
         stations.each { |station| @data.last.add_station(station) }
-        break
       end
     end
   end

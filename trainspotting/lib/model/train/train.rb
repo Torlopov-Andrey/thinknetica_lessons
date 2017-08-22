@@ -3,29 +3,37 @@ require_relative './../station.rb'
 require_relative './../traincar/traincar'
 require_relative './../../module/owner'
 require_relative './../../module/instance_counter'
-require_relative './../../module/validate'
-require_relative './../../module/validate_number'
+require_relative './../../module/validation'
+require_relative './../../module/accessors'
 
 class Train
+  extend Accessors
   include Owner
   include InstanceCounter
-  include Validate
-  include ValidateNumber
+  include Validation
 
-  attr_reader :number, :speed, :carriages
-  @@train_instances = {}
+  attr_reader :carriages, :train_instances
+
+  strong_attr_acessor number: String
+  attr_accessor_with_history :speed
+  validate :number, :format, format: /^[а-я\d]{3}-?[а-я\d]{2}/i
+
+  @train_instances = {}
 
   def initialize(number)
     @number = number
-    validate!
     @carriages = []
     @speed = 0
     @current_station_index = 0
-    @@train_instances[number] = self
+    self.class.train_instances[number] = self
   end
 
   def self.find(number)
     @@train_instances[number]
+  end
+
+  def self.train_instances
+    @train_instances
   end
 
   def speed_up
@@ -91,7 +99,7 @@ class Train
   end
 
   def moving?
-    @speed > 0
+    @speed.positive?
   end
 
   def add_carriage(carriage)

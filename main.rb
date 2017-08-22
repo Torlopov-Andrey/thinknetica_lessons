@@ -20,7 +20,7 @@ module Trainspotting
     loop do
       description
       command = gets.chomp.to_i
-      break if command.zero?
+      break if command == 0
       execute_command(command)
     end
   end
@@ -74,7 +74,7 @@ module Trainspotting
       break unless controller
       eval "@#{controller}_controller.description"
       command = gets.chomp.to_i
-      break if command.zero?
+      break if command == 0
       eval "@#{controller}_controller.execute_command(command)"
     end
   end
@@ -166,7 +166,7 @@ module Trainspotting
   end
 
   def self.move_train_in_route
-    if @train_controller.data.count.zero?
+    if @train_controller.data.count == 0
       puts 'List is empty'
       return
     end
@@ -185,7 +185,7 @@ module Trainspotting
       puts '0. Back'
       print '> '
       command = gets.chomp.to_i
-      break if command.zero?
+      break if command == 0
       case command
       when 1
         suffix = 'forward'

@@ -1,8 +1,6 @@
 require_relative 'station'
-require_relative './../module/validate'
 
 class Route
-  include Validate
   attr_reader :stations
 
   def initialize(start, finish)

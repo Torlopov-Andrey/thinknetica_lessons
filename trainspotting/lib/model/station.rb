@@ -1,20 +1,26 @@
 require_relative './train/train'
 require_relative './../module/instance_counter'
-require_relative './../module/validate'
+require_relative './../module/validation'
+require_relative './../module/accessors'
 
 class Station
+  extend Accessors
   include InstanceCounter
-  include Validate
+  include Validation
 
-  attr_reader :name, :trains
+  attr_reader :trains
+
+  strong_attr_acessor name: String
+  validate :name, :presence
+  validate :name, :type, String
+
 
   @all_instances = []
 
   def initialize(name)
     @name = name
-    validate!
     @trains = []
-    @all_instances << self
+    self.class.all << self
     register_instance
   end
 
@@ -37,12 +43,5 @@ class Station
   def each_train(&block)
     return unless block
     @trains.each { |train| yield(train) }
-  end
-
-  private
-
-  def validate!
-    raise "Name can't be nil" if name.nil?
-    raise 'Name should be at least 5 symbols' if name.length < 5
   end
 end

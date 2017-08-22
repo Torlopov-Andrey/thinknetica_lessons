@@ -27,8 +27,9 @@ module Trainspotting
       puts 'Input station name'
       print '> '
       name = gets.chomp
-      return if @data.select { |station| station.name == name }.count > 0
-      @data << Station.new(name) unless name.empty?
+      return if @data.select { |station| station.name == name }.count.positive?
+      station = Station.new(name) unless name.empty?
+      @data << station
     end
 
     def remove
